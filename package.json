@@ -37,7 +37,7 @@
     "@radix-ui/react-select": "2.2.6",
     "@radix-ui/react-slot": "1.2.4",
     "@tiptap/core": "3.27.4",
-    "@tiptap/extension-image": "3.27.4",
+    "@tiptap/extension-image": "3.28.0",
     "@tiptap/extension-link": "3.27.4",
     "@tiptap/html": "3.27.4",
     "@tiptap/react": "3.27.4",
