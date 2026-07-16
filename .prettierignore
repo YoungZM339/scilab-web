@@ -1,0 +1,8 @@
+.next
+node_modules
+coverage
+playwright-report
+data
+backups
+ops/backups
+pnpm-lock.yaml

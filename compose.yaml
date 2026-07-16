@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+    restart: unless-stopped
+    init: true
+    environment:
+      NODE_ENV: production
+      DATABASE_PATH: /data/scilab.db
+      UPLOAD_DIR: /data/uploads
+      BACKUP_DIR: /backups
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      SITE_URL: ${SITE_URL:-${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET is required}
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    volumes:
+      - scilab_data:/data
+      - scilab_backups:/backups
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  scilab_data:
+  scilab_backups:

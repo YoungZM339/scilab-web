@@ -1,0 +1,38 @@
+name: 缺陷报告
+description: 报告可复现的功能问题（安全漏洞请勿使用此模板）
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 安全问题请按 SECURITY.md 私密报告，不要公开复现细节。
+  - type: input
+    id: version
+    attributes:
+      label: 版本或 commit
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: 操作系统、Node/Docker、浏览器和部署方式
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 请先移除密钥、个人数据、数据库路径和会话信息
