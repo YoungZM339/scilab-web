@@ -1,57 +1,112 @@
 # SciLab Web
 
-A research-lab portal and content-management system. It provides public laboratory introduction, news, member, project, paper, and research pages, along with an administrator area for managing content, media, and site settings.
+> A production-oriented research-lab website and content platform built with Next.js, React, TypeScript, SQLite, and a complete administration workflow.
 
-## Feature Scope
+SciLab Web provides a public-facing laboratory website and an integrated content-management system for maintaining news, members, projects, papers, research directions, media, and site configuration. It is designed for research groups that need a modern website without separating the editorial interface from the application codebase.
 
-- Public site: about, contact, join, news, members, projects, papers, and research content.
-- Content management for pages, news, members, projects, papers, research, and media.
-- Administrator authentication and account management.
-- Rich-text editing, image processing, and HTML sanitization.
-- SQLite migrations, backup, and recovery helper scripts.
-- Docker, operations, and testing documentation.
+## What it includes
 
-## Technology Stack
+### Public website
 
-- Next.js 16, React 19, and TypeScript.
-- Better Auth.
-- Drizzle ORM + SQLite.
-- TipTap, Sharp, and sanitize-html.
-- pnpm 11.13, Node.js 24.x.
+- Laboratory introduction, contact, and recruitment pages.
+- News and announcements.
+- Member profiles and research teams.
+- Projects, papers, and research-direction pages.
+- Responsive media and structured content presentation.
 
-## Quick Start
+### Administration
 
-In a Linux, macOS, or WSL environment, prepare local development in this order:
+- Secure administrator authentication and account management.
+- CRUD workflows for pages, news, members, projects, papers, and research content.
+- Rich-text editing with HTML sanitization.
+- Image upload and processing.
+- Site settings and content ordering.
+- Database migrations, backup helpers, and recovery documentation.
 
-    cp .env.example .env.local
-    pnpm install --frozen-lockfile
-    pnpm db:migrate
-    pnpm db:seed
-    pnpm dev
+## Technology stack
 
-The default seed initializes only the settings needed by the site; it does not create an administrator account or fictional content. See the corresponding documentation under `docs/` and `ops/` for administrator creation, password resets, content management, Docker deployment, and backup/recovery.
+| Layer | Technology |
+| --- | --- |
+| Application | Next.js 16, React 19, TypeScript |
+| Authentication | Better Auth |
+| Database | SQLite with Drizzle ORM |
+| Editor | TipTap |
+| Media | Sharp |
+| Content safety | `sanitize-html` |
+| Tooling | pnpm 11.13, Node.js 24.x |
 
-## Common Commands
+## Quick start
 
-    pnpm build
-    pnpm start
-    pnpm lint
-    pnpm typecheck
-    pnpm test
-    pnpm test:e2e
-    pnpm verify
-    pnpm db:backup
+Use Linux, macOS, or WSL for the documented development workflow.
 
-## Deployment and Operations
+```bash
+cp .env.example .env.local
+pnpm install --frozen-lockfile
+pnpm db:migrate
+pnpm db:seed
+pnpm dev
+```
 
-Before deployment:
+The seed command initializes only the site settings required to start the application. It does **not** create an administrator account or populate fictional laboratory content.
 
-- Generate a strong random authentication secret and keep it in environment configuration;
-- Protect the SQLite database, uploaded media, and backup files;
-- Use a secure non-interactive method when creating administrator credentials;
-- Perform backup and recovery drills following `docs/operations.md`;
-- Run `pnpm verify` before release.
+Follow the documentation under `docs/` and `ops/` to create the first administrator securely.
+
+## Common commands
+
+```bash
+pnpm dev         # Start local development
+pnpm build       # Create a production build
+pnpm start       # Run the production server
+pnpm lint        # Run lint checks
+pnpm typecheck   # Run TypeScript checks
+pnpm test        # Run automated tests
+pnpm test:e2e    # Run end-to-end tests
+pnpm verify      # Run the release verification suite
+pnpm db:backup   # Create a database backup
+```
+
+## Content model
+
+The application organizes a laboratory's public presence around a small number of maintainable content domains:
+
+```text
+Site settings
+├── Pages
+├── News
+├── Members
+├── Projects
+├── Papers
+├── Research
+└── Media
+```
+
+This structure keeps public navigation and administrative workflows aligned. Extend the schema only after considering migration, ordering, permissions, search, and backward compatibility.
+
+## Deployment checklist
+
+Before deploying:
+
+- generate a strong authentication secret and keep it outside version control;
+- create administrator credentials through a secure, non-interactive process;
+- protect the SQLite database, uploaded media, and backup files;
+- configure HTTPS and a reverse proxy appropriate for the environment;
+- restrict filesystem permissions for application and backup data;
+- verify image-processing limits and accepted content types;
+- run `pnpm verify`;
+- perform a backup-and-restore drill using `docs/operations.md`.
+
+SQLite is appropriate for a single-instance site with controlled write concurrency. Reassess the database architecture before multi-instance deployment or sustained high editorial traffic.
+
+## Security model
+
+Administrative authorization must be enforced server-side. Rich text and uploaded media are untrusted input even when submitted by authenticated users. Keep sanitization, file validation, access control, auditability, and backup retention in scope whenever the content model changes.
+
+Do not commit `.env.local`, database files, administrator credentials, uploaded private material, or production backups.
+
+## Documentation
+
+Operational and editorial documentation is maintained inside the repository. Consult `docs/` and `ops/` for administrator setup, password recovery, content-management procedures, Docker deployment, and backup/recovery instructions.
 
 ## License
 
-This repository is released under the MIT License. Uploaded content, images, and third-party material may have separate copyrights.
+SciLab Web is released under the MIT License. Uploaded content, images, publication files, and other third-party material may have separate copyright or licensing terms.
