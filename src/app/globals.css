@@ -1200,3 +1200,411 @@ img {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Institution-style homepage: content remains fully managed through the CMS. */
+.institutional-hero {
+  position: relative;
+  min-height: min(47rem, calc(100svh - 4.75rem));
+  display: flex;
+  align-items: end;
+  isolation: isolate;
+  overflow: hidden;
+  color: white;
+  background: #082a4c;
+}
+
+.institutional-hero-image,
+.lead-news-media img,
+.research-showcase img {
+  object-fit: cover;
+}
+
+.institutional-hero-pattern {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  background:
+    radial-gradient(circle at 72% 35%, rgb(50 173 219 / 55%), transparent 27%),
+    linear-gradient(125deg, #061c39 5%, #0b4b78 52%, #0892b4 110%);
+}
+
+.institutional-hero-pattern::before,
+.institutional-hero-pattern::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+}
+
+.institutional-hero-pattern::before {
+  width: 46rem;
+  height: 46rem;
+  right: -8rem;
+  top: -14rem;
+}
+.institutional-hero-pattern::after {
+  width: 24rem;
+  height: 24rem;
+  right: 18rem;
+  top: 12rem;
+}
+
+.institutional-hero-shade {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(2 19 40 / 82%) 0%,
+      rgb(2 24 49 / 40%) 55%,
+      rgb(2 19 40 / 8%)
+    ),
+    linear-gradient(0deg, rgb(1 14 30 / 60%), transparent 58%);
+}
+
+.institutional-hero-content {
+  padding-block: clamp(6rem, 13vw, 10rem);
+}
+.hero-kicker {
+  margin: 0 0 1.1rem;
+  color: #7fd9ed;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.institutional-hero h1 {
+  max-width: 14ch;
+  margin: 0;
+  font-family: "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+.institutional-hero-content > p:not(.hero-kicker) {
+  max-width: 42rem;
+  margin: 1.4rem 0 0;
+  color: rgb(255 255 255 / 82%);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+}
+.hero-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 2.2rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgb(255 255 255 / 65%);
+  font-weight: 650;
+}
+.hero-scroll {
+  position: absolute;
+  right: 2.5rem;
+  bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  writing-mode: vertical-rl;
+}
+.hero-scroll span {
+  width: 1px;
+  height: 2.6rem;
+  background: currentColor;
+}
+
+.home-quick-nav {
+  color: white;
+  background: #073b67;
+}
+.home-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.home-quick-grid > a {
+  min-height: 8.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 1.5rem 2rem;
+  border-right: 1px solid rgb(255 255 255 / 14%);
+  transition: background 180ms ease;
+}
+.home-quick-grid > a:first-child {
+  border-left: 1px solid rgb(255 255 255 / 14%);
+}
+.home-quick-grid > a:hover {
+  background: #0b527f;
+}
+.quick-number {
+  align-self: flex-start;
+  color: rgb(255 255 255 / 38%);
+  font-family: serif;
+  font-size: 0.78rem;
+}
+.home-quick-grid strong,
+.home-quick-grid small {
+  display: block;
+}
+.home-quick-grid strong {
+  font-family: "Noto Serif CJK SC", serif;
+  font-size: 1.2rem;
+}
+.home-quick-grid small {
+  margin-top: 0.2rem;
+  color: rgb(255 255 255 / 56%);
+  font-size: 0.78rem;
+}
+.quick-arrow {
+  margin-left: auto;
+  color: #73cfe4;
+}
+
+.institutional-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.7rem;
+}
+.institutional-heading p {
+  margin: 0 0 0.3rem;
+  color: #4287ad;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.institutional-heading h2 {
+  margin: 0;
+  font-family: "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.institutional-heading > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.4rem;
+  color: var(--ink-soft);
+  border-bottom: 1px solid #aab8c0;
+  font-size: 0.88rem;
+}
+.institutional-heading-light h2 {
+  color: white;
+}
+.institutional-heading-light p,
+.institutional-heading-light > a {
+  color: #80d4e7;
+}
+.institutional-heading-light > a {
+  border-color: rgb(128 212 231 / 55%);
+}
+
+.home-news-section,
+.home-output-section {
+  background: #fff;
+}
+.home-news-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.lead-news-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #dce8ee;
+}
+.lead-news-placeholder {
+  height: 100%;
+  background: linear-gradient(135deg, #d6e8ef, #85b9ca);
+}
+.lead-news-copy {
+  position: relative;
+  width: 88%;
+  margin: -3.2rem 0 0 auto;
+  padding: 1.6rem 0 0 1.8rem;
+  background: white;
+}
+.lead-news time,
+.news-brief-list time {
+  color: #4084a7;
+  font-size: 0.78rem;
+}
+.lead-news h3,
+.news-brief-list h3 {
+  margin: 0.5rem 0 0;
+  font-family: "Noto Serif CJK SC", serif;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.lead-news h3 {
+  font-size: 1.5rem;
+}
+.lead-news p,
+.news-brief-list p {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ink-soft);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.news-brief-list {
+  border-top: 1px solid #cfd9df;
+}
+.news-brief-list > a {
+  position: relative;
+  display: block;
+  padding: 1.35rem 2.5rem 1.35rem 0;
+  border-bottom: 1px solid #cfd9df;
+}
+.news-brief-list h3 {
+  font-size: 1.12rem;
+}
+.news-brief-list p {
+  margin: 0.55rem 0 0;
+  font-size: 0.86rem;
+}
+.news-brief-list svg {
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  color: #4084a7;
+}
+
+.home-research-section {
+  color: white;
+  background: #052e53;
+}
+.research-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.research-showcase > a {
+  position: relative;
+  min-height: 26rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 2rem;
+  background: linear-gradient(145deg, #0d5076, #06233f);
+  border-right: 1px solid rgb(255 255 255 / 17%);
+}
+.research-showcase > a::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(1 17 34 / 93%), rgb(3 27 50 / 15%) 75%);
+  transition: background 180ms ease;
+}
+.research-showcase > a:hover::after {
+  background: linear-gradient(0deg, rgb(1 43 68 / 96%), rgb(3 27 50 / 25%) 75%);
+}
+.research-showcase img {
+  z-index: -2;
+  transition: transform 400ms ease;
+}
+.research-showcase > a:hover img {
+  transform: scale(1.035);
+}
+.research-index {
+  position: absolute;
+  top: 1.6rem;
+  left: 2rem;
+  color: rgb(255 255 255 / 56%);
+}
+.research-showcase h3 {
+  margin: 0;
+  font-family: "Noto Serif CJK SC", serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+.research-showcase p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0.8rem 0 0;
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.87rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.research-showcase svg {
+  margin-top: 1.5rem;
+  color: #73d2e7;
+}
+
+.home-cta {
+  padding-block: 4.5rem;
+  color: white;
+  background: linear-gradient(105deg, #087f9b, #07456f);
+}
+.home-cta .site-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.home-cta p {
+  margin: 0 0 0.4rem;
+  color: #9be2ec;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+}
+.home-cta h2 {
+  margin: 0;
+  font-family: "Noto Serif CJK SC", serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+}
+.home-cta span {
+  display: block;
+  margin-top: 0.7rem;
+  color: rgb(255 255 255 / 72%);
+}
+.home-cta a {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid rgb(255 255 255 / 65%);
+}
+
+@media (max-width: 800px) {
+  .home-quick-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-quick-grid > a {
+    min-height: 6.5rem;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 14%);
+  }
+  .home-news-layout {
+    grid-template-columns: 1fr;
+  }
+  .research-showcase {
+    grid-template-columns: 1fr;
+  }
+  .research-showcase > a {
+    min-height: 20rem;
+    border-right: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 17%);
+  }
+  .home-cta .site-container {
+    display: block;
+  }
+  .home-cta a {
+    margin-top: 1.5rem;
+  }
+  .hero-scroll {
+    display: none;
+  }
+}

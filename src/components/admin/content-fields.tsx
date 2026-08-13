@@ -39,9 +39,9 @@ export function CommonContentFields({
           />
         </FormField>
         <FormField
-          label="页面路径"
+          label="网址名称"
           htmlFor="slug"
-          description="留空时根据标题自动生成；已有内容更新标题不会自动改变此值。"
+          description="通常无需填写；留空时会根据标题自动生成。"
         >
           <Input
             id="slug"
@@ -55,7 +55,7 @@ export function CommonContentFields({
       <FormField
         label="摘要"
         htmlFor="summary"
-        description="用于列表卡片和搜索引擎描述。"
+        description="用一两句话概括内容，方便访客快速了解。"
       >
         <Textarea
           id="summary"
@@ -85,9 +85,9 @@ export function CommonContentFields({
           </Select>
         </FormField>
         <FormField
-          label="排序"
+          label="展示顺序"
           htmlFor="sortOrder"
-          description="数值越小越靠前。"
+          description="数字较小的内容排在前面。"
         >
           <Input
             id="sortOrder"
@@ -105,9 +105,9 @@ export function CommonContentFields({
             name="featured"
             type="checkbox"
             defaultChecked={value.featured ?? false}
-            className="size-4 rounded border-slate-300 text-teal-700 focus:ring-teal-600"
+            className="size-4 rounded border-slate-300 text-[#0052d9] focus:ring-[#0052d9]"
           />
-          在首页或列表重点展示
+          重点展示这项内容
         </label>
       ) : null}
     </>

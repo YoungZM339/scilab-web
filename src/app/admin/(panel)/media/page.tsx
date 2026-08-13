@@ -73,8 +73,8 @@ export default async function MediaAdminPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="媒体库"
-        description="图片上传后会转为 WebP 并移除元数据；PDF 保留原格式。被内容引用的文件不能删除。"
+        title="图片与文件"
+        description="集中管理网站使用的图片和文档。正在展示的文件不能删除，以免页面内容缺失。"
         actions={<MediaLibraryUpload />}
       />
       <SavedAlert
@@ -177,8 +177,8 @@ export default async function MediaAdminPage({
         </div>
       ) : (
         <EmptyState
-          title="媒体库为空"
-          description="上传 JPEG、PNG、WebP 图片或 PDF 文件。"
+          title="还没有图片或文件"
+          description="可上传常见格式的图片或 PDF 文档。"
           action={<MediaLibraryUpload />}
         />
       )}

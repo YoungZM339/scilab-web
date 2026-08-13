@@ -8,17 +8,20 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navigation = [
+  { href: "/", label: "首页" },
   { href: "/about", label: "关于我们" },
   { href: "/research", label: "研究方向" },
   { href: "/people", label: "团队成员" },
-  { href: "/projects", label: "科研项目" },
-  { href: "/publications", label: "研究成果" },
-  { href: "/news", label: "动态" },
+  { href: "/projects", label: "科研平台" },
+  { href: "/publications", label: "科研成果" },
+  { href: "/news", label: "实验室动态" },
   { href: "/join", label: "加入我们" },
 ];
 
 function isActive(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
+  return href === "/"
+    ? pathname === href
+    : pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function SiteHeader({

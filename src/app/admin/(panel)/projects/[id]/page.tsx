@@ -150,7 +150,7 @@ export default async function ProjectEditor({
                 meta: member.roleTitle,
               }))}
               selected={selectedMembers.map((row) => row.id)}
-              emptyText="请先在成员模块添加成员。"
+              emptyText="请先添加团队成员。"
             />
           </FormField>
           <FormField label="研究方向">

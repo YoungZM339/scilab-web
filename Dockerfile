@@ -55,5 +55,6 @@ RUN chmod +x /usr/local/bin/scilab-entrypoint
 USER nextjs
 EXPOSE 3000
 VOLUME ["/data", "/backups"]
+STOPSIGNAL SIGTERM
 ENTRYPOINT ["scilab-entrypoint"]
 CMD ["node", "server.js"]
