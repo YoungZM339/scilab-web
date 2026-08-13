@@ -259,8 +259,7 @@ export function RichTextEditor({
         <EditorContent editor={editor} />
       </div>
       <p className="mt-1.5 text-xs text-slate-500">
-        支持二/三级标题、列表、引用、安全链接与已上传图片；不支持 HTML、iframe
-        或任意样式。
+        可使用标题、列表、引用、链接和图片来丰富正文内容。
       </p>
       {error ? (
         <p role="alert" className="mt-1 text-sm text-red-600">

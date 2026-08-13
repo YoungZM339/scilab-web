@@ -925,7 +925,12 @@ const getHomeFeaturedContent = unstable_cache(
         db
           .select()
           .from(publications)
-          .where(eq(publications.status, "published"))
+          .where(
+            and(
+              eq(publications.status, "published"),
+              eq(publications.featured, true),
+            ),
+          )
           .orderBy(
             desc(publications.year),
             desc(publications.publishedAt),

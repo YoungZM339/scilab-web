@@ -107,7 +107,7 @@ export default async function PublicationEditor({
     <div className="space-y-6">
       <PageHeader
         title={item ? "编辑论文成果" : "新增论文成果"}
-        description="作者字段按论文署名原样保存；关联成员仅用于站内交叉展示。"
+        description="请按照成果正式发布的信息填写，并可选择相关成员、项目和研究方向。"
       />
       <SavedAlert saved={query.saved === "1"} />
       <form action={savePublicationAction.bind(null, id)} className="space-y-6">
@@ -294,7 +294,7 @@ export default async function PublicationEditor({
               defaultChecked={item?.featured ?? false}
               className="size-4"
             />
-            在首页精选展示
+            在主页重点展示
           </label>
         </FormSection>
         <SaveBar cancelHref="/admin/publications">

@@ -181,7 +181,7 @@ export default async function MemberEditor({
               defaultChecked={item?.featured ?? false}
               className="size-4"
             />
-            在首页精选展示
+            重点展示这位成员
           </label>
         </FormSection>
         <SaveBar cancelHref="/admin/people">

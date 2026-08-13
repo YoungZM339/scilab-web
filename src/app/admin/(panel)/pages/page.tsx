@@ -38,7 +38,7 @@ export default async function PagesAdminPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="固定页面"
+        title="介绍页面"
         description="维护实验室介绍、加入我们和联系我们页面。"
         actions={
           <Button asChild>
@@ -56,7 +56,7 @@ export default async function PagesAdminPage({
           rows={rows.map((row) => ({
             id: row.id,
             title: row.title,
-            subtitle: `${row.key} · /${row.slug}`,
+            subtitle: row.summary,
             status: row.status,
             sortOrder: row.sortOrder,
           }))}
@@ -65,8 +65,8 @@ export default async function PagesAdminPage({
         />
       ) : (
         <EmptyState
-          title="没有匹配的固定页面"
-          description="调整筛选条件，或创建尚未配置的固定页面。"
+          title="没有匹配的介绍页面"
+          description="调整筛选条件，或创建需要的介绍页面。"
           action={
             <Button asChild>
               <Link href="/admin/pages/new">新增页面</Link>

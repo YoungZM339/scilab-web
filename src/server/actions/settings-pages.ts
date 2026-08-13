@@ -81,6 +81,28 @@ export async function updateSiteSettingsAction(formData: FormData) {
   redirect("/admin/settings?saved=1");
 }
 
+/** Update only fields used by the homepage editor without overwriting site-wide settings. */
+export async function updateHomepageAction(formData: FormData) {
+  const session = await requireAdmin();
+  const values = {
+    heroTitle: optionalString(formData, "heroTitle", 200),
+    heroSubtitle: optionalString(formData, "heroSubtitle", 500),
+    heroImageId: optionalInteger(formData, "heroImageId"),
+  };
+
+  await db
+    .insert(siteSettings)
+    .values({ id: 1, siteName: "科研实验室", ...values })
+    .onConflictDoUpdate({ target: siteSettings.id, set: values });
+  await logAudit(session.user.id, "update", "site_settings", 1, {
+    section: "homepage",
+  });
+  revalidateTag("site-settings", "max");
+  revalidatePath("/");
+  revalidatePath("/admin/homepage");
+  redirect("/admin/homepage?saved=1");
+}
+
 export async function savePageAction(id: number | null, formData: FormData) {
   const session = await requireAdmin();
   const key = z.enum(pageKeys).parse(requiredString(formData, "key", 20));

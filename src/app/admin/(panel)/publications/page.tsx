@@ -94,7 +94,7 @@ export default async function PublicationsAdminPage({
     <div className="space-y-6">
       <PageHeader
         title="论文成果"
-        description="维护准确的作者字符串、出版信息、DOI、链接与关联内容。"
+        description="集中维护论文、专利、软件等科研成果及相关资料。"
         actions={
           <Button asChild>
             <Link href="/admin/publications/new">

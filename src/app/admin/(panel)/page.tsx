@@ -38,8 +38,8 @@ const entityLabels: Record<string, string> = {
   project: "项目",
   publication: "论文成果",
   news_post: "新闻",
-  page: "固定页面",
-  site_settings: "站点设置",
+  page: "介绍页面",
+  site_settings: "网站信息",
   media_asset: "媒体文件",
   admin_account: "管理员账户",
 };
@@ -196,7 +196,7 @@ export default async function AdminDashboardPage() {
               ["新增研究方向", "/admin/research/new"],
               ["新增项目", "/admin/projects/new"],
               ["新增论文成果", "/admin/publications/new"],
-              ["管理站点信息", "/admin/settings"],
+              ["管理网站信息", "/admin/settings"],
             ].map(([label, href]) => (
               <Button
                 key={href}

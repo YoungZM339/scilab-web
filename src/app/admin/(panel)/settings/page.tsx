@@ -13,7 +13,7 @@ import { db } from "@/server/db";
 import { siteSettings } from "@/server/db/schema";
 import { updateSiteSettingsAction } from "@/server/actions/settings-pages";
 
-export const metadata: Metadata = { title: "站点设置 | 管理后台" };
+export const metadata: Metadata = { title: "网站信息 | 管理后台" };
 
 export default async function SettingsPage({
   searchParams,
@@ -30,8 +30,8 @@ export default async function SettingsPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="站点设置"
-        description="管理公开网站的名称、首页主视觉、联系方式和搜索引擎信息。"
+        title="网站信息"
+        description="管理网站名称、实验室简介、联系方式和分享信息。"
       />
       <SavedAlert saved={query.saved === "1"} />
       <form action={updateSiteSettingsAction} className="space-y-6">
@@ -72,35 +72,21 @@ export default async function SettingsPage({
             />
           </FormField>
         </FormSection>
-        <FormSection
-          title="首页主视觉"
-          description="未上传图片时，公开首页会使用学术网格背景。"
-        >
-          <FormField label="主标题" htmlFor="heroTitle">
-            <Input
-              id="heroTitle"
-              name="heroTitle"
-              maxLength={200}
-              defaultValue={settings?.heroTitle ?? ""}
-            />
-          </FormField>
-          <FormField label="副标题" htmlFor="heroSubtitle">
-            <Textarea
-              id="heroSubtitle"
-              name="heroSubtitle"
-              rows={3}
-              maxLength={500}
-              defaultValue={settings?.heroSubtitle ?? ""}
-            />
-          </FormField>
-          <FormField label="主视觉图片">
-            <MediaUpload
-              name="heroImageId"
-              initialId={settings?.heroImageId}
-              label="上传主视觉图片"
-            />
-          </FormField>
-        </FormSection>
+        <input
+          type="hidden"
+          name="heroTitle"
+          value={settings?.heroTitle ?? ""}
+        />
+        <input
+          type="hidden"
+          name="heroSubtitle"
+          value={settings?.heroSubtitle ?? ""}
+        />
+        <input
+          type="hidden"
+          name="heroImageId"
+          value={settings?.heroImageId ?? ""}
+        />
         <FormSection title="联系与页脚">
           <FormGrid>
             <FormField label="联系邮箱" htmlFor="contactEmail">
@@ -152,8 +138,12 @@ export default async function SettingsPage({
             />
           </FormField>
         </FormSection>
-        <FormSection title="搜索引擎信息">
-          <FormField label="SEO 标题" htmlFor="seoTitle">
+        <FormSection title="搜索与分享">
+          <FormField
+            label="网页标题"
+            htmlFor="seoTitle"
+            description="显示在浏览器标签、搜索结果和分享卡片中。"
+          >
             <Input
               id="seoTitle"
               name="seoTitle"
@@ -161,7 +151,11 @@ export default async function SettingsPage({
               defaultValue={settings?.seoTitle ?? ""}
             />
           </FormField>
-          <FormField label="SEO 描述" htmlFor="seoDescription">
+          <FormField
+            label="网页简介"
+            htmlFor="seoDescription"
+            description="简要介绍实验室，帮助访客在搜索结果中了解网站。"
+          >
             <Textarea
               id="seoDescription"
               name="seoDescription"
@@ -172,7 +166,7 @@ export default async function SettingsPage({
           </FormField>
         </FormSection>
         <div className="flex justify-end">
-          <SubmitButton>保存站点设置</SubmitButton>
+          <SubmitButton>保存网站信息</SubmitButton>
         </div>
       </form>
     </div>

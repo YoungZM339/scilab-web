@@ -51,13 +51,13 @@ export default async function PageEditor({
   return (
     <div className="space-y-6">
       <PageHeader
-        title={item ? `编辑：${item.title}` : "新增固定页面"}
-        description="固定页面的访问路径由页面类型决定。"
+        title={item ? `编辑：${item.title}` : "新增介绍页面"}
+        description="用于维护关于我们、加入我们和联系我们的内容。"
       />
       <SavedAlert saved={query.saved === "1"} />
       {!availableKeys.length ? (
         <p className="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
-          三个固定页面均已存在，请返回列表编辑现有页面。
+          所有介绍页面均已创建，请返回列表选择需要编辑的页面。
         </p>
       ) : (
         <form action={savePageAction.bind(null, id)} className="space-y-6">

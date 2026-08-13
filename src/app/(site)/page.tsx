@@ -1,16 +1,9 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarDays, Microscope, UsersRound } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import {
-  NewsCard,
-  PersonCard,
-  ProjectCard,
-  PublicationItem,
-  ResearchCard,
-} from "@/components/site/cards";
-import { RichText } from "@/components/site/rich-text";
+import { PublicationItem } from "@/components/site/cards";
 import { getHomePageData, getSiteSettings } from "@/server/services/public";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,124 +16,152 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const quickLinks = [
+  {
+    href: "/research",
+    label: "研究方向",
+    note: "探索前沿科学问题",
+    icon: Microscope,
+  },
+  {
+    href: "/people",
+    label: "科研团队",
+    note: "认识我们的研究者",
+    icon: UsersRound,
+  },
+  {
+    href: "/join",
+    label: "加入我们",
+    note: "一起推动科学发现",
+    icon: CalendarDays,
+  },
+];
+
 export default async function HomePage() {
   const data = await getHomePageData();
   const { settings } = data;
+  const leadNews = data.news[0];
+  const otherNews = data.news.slice(1, 4);
 
   return (
     <>
-      <section className="hero">
-        {settings.heroImageUrl && (
-          <div className="hero-media-wrap" aria-hidden="true">
-            <Image
-              alt=""
-              className="hero-media"
-              fill
-              priority
-              sizes="(max-width: 800px) 100vw, 58vw"
-              src={settings.heroImageUrl}
-            />
-          </div>
+      <section className="institutional-hero">
+        {settings.heroImageUrl ? (
+          <Image
+            alt=""
+            className="institutional-hero-image"
+            fill
+            priority
+            sizes="100vw"
+            src={settings.heroImageUrl}
+          />
+        ) : (
+          <div className="institutional-hero-pattern" aria-hidden="true" />
         )}
-        <div className="site-container hero-content">
-          <p className="eyebrow">Research · Discovery · Collaboration</p>
-          <h1 className="hero-title">
-            {settings.heroTitle || settings.siteName}
-          </h1>
-          {(settings.heroSubtitle || settings.tagline) && (
-            <p className="hero-subtitle">
-              {settings.heroSubtitle || settings.tagline}
-            </p>
-          )}
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/research">
-              探索研究方向 <ArrowRight aria-hidden="true" size={17} />
-            </Link>
-            <Link className="button button-secondary" href="/join">
-              加入我们
-            </Link>
-          </div>
+        <div className="institutional-hero-shade" />
+        <div className="site-container institutional-hero-content">
+          <p className="hero-kicker">Science · Innovation · Future</p>
+          <h1>{settings.heroTitle || settings.siteName}</h1>
+          <p>
+            {settings.heroSubtitle || settings.tagline || settings.description}
+          </p>
+          <Link className="hero-more" href="/about">
+            了解实验室 <ArrowRight aria-hidden="true" size={18} />
+          </Link>
+        </div>
+        <div className="hero-scroll" aria-hidden="true">
+          <span /> 向下探索
         </div>
       </section>
 
-      {data.about && (data.about.summary || data.about.html) && (
-        <section className="section">
-          <div className="narrow-container">
-            <p className="eyebrow">About the Lab</p>
-            <h2 className="section-title">{data.about.title}</h2>
-            {data.about.summary && (
-              <p className="section-lead">{data.about.summary}</p>
-            )}
-            {!data.about.summary && <RichText html={data.about.html} />}
-            <div className="button-row">
-              <Link className="text-link" href="/about">
-                了解实验室 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
+      <nav className="home-quick-nav" aria-label="首页快捷入口">
+        <div className="site-container home-quick-grid">
+          {quickLinks.map(({ href, label, note, icon: Icon }, index) => (
+            <Link href={href} key={href}>
+              <span className="quick-number">0{index + 1}</span>
+              <Icon aria-hidden="true" size={28} strokeWidth={1.5} />
+              <span>
+                <strong>{label}</strong>
+                <small>{note}</small>
+              </span>
+              <ArrowRight
+                aria-hidden="true"
+                className="quick-arrow"
+                size={19}
+              />
+            </Link>
+          ))}
+        </div>
+      </nav>
+
+      {data.news.length > 0 && (
+        <section className="section home-news-section">
+          <div className="site-container">
+            <HomeHeading cn="实验室动态" en="Laboratory News" href="/news" />
+            <div className="home-news-layout">
+              {leadNews && (
+                <Link className="lead-news" href={`/news/${leadNews.slug}`}>
+                  <div className="lead-news-media">
+                    {leadNews.coverUrl ? (
+                      <Image
+                        alt=""
+                        fill
+                        sizes="(max-width: 800px) 100vw, 55vw"
+                        src={leadNews.coverUrl}
+                      />
+                    ) : (
+                      <div className="lead-news-placeholder" />
+                    )}
+                  </div>
+                  <div className="lead-news-copy">
+                    <time>{leadNews.publishedAt}</time>
+                    <h3>{leadNews.title}</h3>
+                    {leadNews.summary && <p>{leadNews.summary}</p>}
+                  </div>
+                </Link>
+              )}
+              <div className="news-brief-list">
+                {otherNews.map((post) => (
+                  <Link href={`/news/${post.slug}`} key={post.id}>
+                    <time>{post.publishedAt}</time>
+                    <h3>{post.title}</h3>
+                    {post.summary && <p>{post.summary}</p>}
+                    <ArrowRight aria-hidden="true" size={18} />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
       {data.researchAreas.length > 0 && (
-        <section className="section section-muted">
+        <section className="section home-research-section">
           <div className="site-container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Research Areas</p>
-                <h2 className="section-title">研究方向</h2>
-                <p className="section-lead">
-                  聚焦重要科学问题，在交叉协作中形成新的理解与方法。
-                </p>
-              </div>
-              <Link className="text-link" href="/research">
-                查看全部 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
-            </div>
-            <div className="site-grid grid-3">
-              {data.researchAreas.map((area) => (
-                <ResearchCard area={area} key={area.id} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {data.projects.length > 0 && (
-        <section className="section">
-          <div className="site-container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Selected Projects</p>
-                <h2 className="section-title">精选项目</h2>
-              </div>
-              <Link className="text-link" href="/projects">
-                查看全部 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
-            </div>
-            <div className="site-grid grid-3">
-              {data.projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {data.members.length > 0 && (
-        <section className="section section-muted">
-          <div className="site-container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">People</p>
-                <h2 className="section-title">团队成员</h2>
-              </div>
-              <Link className="text-link" href="/people">
-                认识团队 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
-            </div>
-            <div className="site-grid grid-4">
-              {data.members.map((member) => (
-                <PersonCard key={member.id} member={member} />
+            <HomeHeading
+              cn="研究方向"
+              en="Research Directions"
+              href="/research"
+              light
+            />
+            <div className="research-showcase">
+              {data.researchAreas.map((area, index) => (
+                <Link href={`/research/${area.slug}`} key={area.id}>
+                  {area.coverUrl && (
+                    <Image
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      src={area.coverUrl}
+                    />
+                  )}
+                  <span className="research-index">0{index + 1}</span>
+                  <div>
+                    <h3>{area.title}</h3>
+                    {area.summary && <p>{area.summary}</p>}
+                  </div>
+                  <ArrowRight aria-hidden="true" size={20} />
+                </Link>
               ))}
             </div>
           </div>
@@ -148,19 +169,15 @@ export default async function HomePage() {
       )}
 
       {data.publications.length > 0 && (
-        <section className="section">
+        <section className="section home-output-section">
           <div className="site-container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Latest Outputs</p>
-                <h2 className="section-title">最新成果</h2>
-              </div>
-              <Link className="text-link" href="/publications">
-                浏览全部 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
-            </div>
+            <HomeHeading
+              cn="最新成果"
+              en="Latest Outputs"
+              href="/publications"
+            />
             <ol className="publication-list">
-              {data.publications.map((publication) => (
+              {data.publications.slice(0, 4).map((publication) => (
                 <PublicationItem
                   key={publication.id}
                   publication={publication}
@@ -171,43 +188,46 @@ export default async function HomePage() {
         </section>
       )}
 
-      {data.news.length > 0 && (
-        <section className="section section-muted">
-          <div className="site-container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">News & Events</p>
-                <h2 className="section-title">最新动态</h2>
-              </div>
-              <Link className="text-link" href="/news">
-                查看全部 <ArrowRight aria-hidden="true" size={15} />
-              </Link>
-            </div>
-            <div className="site-grid grid-3">
-              {data.news.map((post) => (
-                <NewsCard key={post.id} post={post} />
-              ))}
-            </div>
+      <section className="home-cta">
+        <div className="site-container">
+          <div>
+            <p>JOIN OUR TEAM</p>
+            <h2>{data.join?.title || "与优秀的人，一起探索未知"}</h2>
+            <span>
+              {data.join?.summary || "欢迎对科学充满热情的青年人才加入我们。"}
+            </span>
           </div>
-        </section>
-      )}
-
-      {data.join && (
-        <section className="section">
-          <div className="narrow-container">
-            <p className="eyebrow">Join Us</p>
-            <h2 className="section-title">{data.join.title}</h2>
-            {data.join.summary && (
-              <p className="section-lead">{data.join.summary}</p>
-            )}
-            <div className="button-row">
-              <Link className="button button-primary" href="/join">
-                查看机会 <ArrowRight aria-hidden="true" size={17} />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+          <Link href="/join">
+            查看加入方式 <ArrowRight aria-hidden="true" size={18} />
+          </Link>
+        </div>
+      </section>
     </>
+  );
+}
+
+function HomeHeading({
+  cn,
+  en,
+  href,
+  light = false,
+}: {
+  cn: string;
+  en: string;
+  href: string;
+  light?: boolean;
+}) {
+  return (
+    <div
+      className={`institutional-heading${light ? " institutional-heading-light" : ""}`}
+    >
+      <div>
+        <p>{en}</p>
+        <h2>{cn}</h2>
+      </div>
+      <Link href={href}>
+        查看更多 <ArrowRight aria-hidden="true" size={17} />
+      </Link>
+    </div>
   );
 }
